@@ -1,4 +1,4 @@
-package input;
+package authordetect.input;
 
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.InputSplit;
@@ -7,7 +7,7 @@ import org.apache.hadoop.mapreduce.TaskAttemptContext;
 import org.apache.hadoop.mapreduce.lib.input.CombineFileInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.CombineFileRecordReader;
 import org.apache.hadoop.mapreduce.lib.input.CombineFileSplit;
-import structure.TextArrayWritable;
+import authordetect.structure.TextArrayWritable;
 
 import java.io.IOException;
 

@@ -1,4 +1,4 @@
-package structure;
+package authordetect.structure;
 
 import org.apache.hadoop.io.ArrayWritable;
 import org.apache.hadoop.io.Text;

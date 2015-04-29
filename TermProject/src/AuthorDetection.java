@@ -1,5 +1,5 @@
-import input.CombineBooksInputFormat;
-import structure.TextArrayWritable;
+import authordetect.input.CombineBooksInputFormat;
+import authordetect.structure.TextArrayWritable;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.Text;
@@ -7,8 +7,9 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
-import tfidf.TFIDFMapper;
-import tfidf.TFIDFReducer;
+import authordetect.tfidf.TFIDFMapper;
+import authordetect.tfidf.TFIDFReducer;
+import util.FileSelector;
 
 import java.io.IOException;
 
@@ -23,6 +24,7 @@ public class AuthorDetection {
 
         Configuration configuration = new Configuration();
 
+        FileSelector fileSelector =
     }
 
     private static void computeTFIDF(Configuration configuration, int option, Path path) throws IOException, ClassNotFoundException, InterruptedException {

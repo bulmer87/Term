@@ -1,4 +1,4 @@
-package structure;
+package authordetect.structure;
 
 import java.util.HashMap;
 

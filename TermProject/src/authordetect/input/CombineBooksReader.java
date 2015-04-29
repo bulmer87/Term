@@ -18,8 +18,6 @@ import java.io.IOException;
  */
 public class CombineBooksReader extends RecordReader {
 
-
-
     private int index;
     private SingleBookReader bookReader;
 

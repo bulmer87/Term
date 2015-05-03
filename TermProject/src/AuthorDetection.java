@@ -31,8 +31,6 @@ public class AuthorDetection {
     public static final int ITER = 3;
     public static final int GROUP_BY_AUTHER = 0;
     public static final int GROUP_BY_BOOK = 1;
-    public static final String TEST_PATH = "/Test/";
-    public static final String TRAINING_PATH = "/bulmer/input/";
     public static final String FIRST_TEMP_PATH = "/bulmer/output/first/";
     public static final String SECOND_TEMP_PATH = "/bulmer/output/second/";
     public static final String THIRD_TEMP_PATH = "/bulmer/output/third/";
@@ -43,8 +41,8 @@ public class AuthorDetection {
         FileSelector fileSelector = new FileSelector();
         for (int i = 0; i < ITER; i++) {
             randFileSelect(fileSelector);
-            computeTFIDF(configuration, GROUP_BY_AUTHER, TEST_PATH, FIRST_TEMP_PATH + "train/" + i);// Training set
-            computeTFIDF(configuration, GROUP_BY_BOOK, TRAINING_PATH, FIRST_TEMP_PATH + "test/" + i);// Testing set
+            computeTFIDF(configuration, GROUP_BY_AUTHER, FileSelector.TRAINING_PATH, FIRST_TEMP_PATH + "train/" + i);// Training set
+            computeTFIDF(configuration, GROUP_BY_BOOK, FileSelector.TESTING_PATH, FIRST_TEMP_PATH + "test/" + i);// Testing set
             fileSelector.moveBackFiles();
         }
 

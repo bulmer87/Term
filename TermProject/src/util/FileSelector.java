@@ -27,7 +27,9 @@ import java.util.Random;
 
 public class FileSelector {
 
-    public ArrayList<String> books = new ArrayList<String>();
+    private ArrayList<String> books = new ArrayList<String>();
+    public static final String TRAINING_PATH = "/TrainingSet/Test100/";
+    public static final String TESTING_PATH = "/TestSet/";
 
     public boolean initialize() {
         try {
@@ -41,13 +43,12 @@ public class FileSelector {
                 String line;
                 boolean parse = false;
                 while ((line = buf.readLine()) != null) {
-                	if(line.startsWith("Found"))
-                	{
-                		parse = true;
-                		continue;
-                	}
-                	if(parse == true)
-                		books.add(line);
+                    if (line.startsWith("Found")) {
+                        parse = true;
+                        continue;
+                    }
+                    if (parse == true)
+                        books.add(line);
                 }
                 buf.close();
             } catch (Exception e) {
@@ -63,7 +64,7 @@ public class FileSelector {
 
     public boolean moveFilesTo() {
             /*Random randomSelector = new Random();
-			ArrayList<Integer> numberList = new ArrayList<Integer>();
+            ArrayList<Integer> numberList = new ArrayList<Integer>();
 			int selected= 0;
 			for(int i=0;i<50;i++)
 			{
@@ -93,7 +94,7 @@ public class FileSelector {
             try {
                 System.out.println("The new process is started on iteration " + i);
                 System.out.println("The file being copied is " + copy.get(selected));
-                Process p = Runtime.getRuntime().exec("/usr/local/hadoop-2.3.0/bin/hdfs dfs -mv /TrainingSet/Test100/" + copy.get(selected) + " /TestSet");//movement of file to selected directory
+                Process p = Runtime.getRuntime().exec("/HADOOP_HOME/bin/hdfs dfs -mv " + TRAINING_PATH + copy.get(selected) + " " + TESTING_PATH);//movement of file to selected directory
                 System.out.println("The exit status is " + p.waitFor());//get exit status
                 System.out.println("Waiting over for iteration " + i);
                 copy.remove(selected);
@@ -107,7 +108,7 @@ public class FileSelector {
 
     public boolean moveBackFiles() {
         try {
-            Process p = Runtime.getRuntime().exec("/usr/local/hadoop-2.3.0/bin/hdfs dfs -mv /TestSet/* /TrainingSet/Test100/");
+            Process p = Runtime.getRuntime().exec("$HADOOP_HOME/bin/hdfs dfs -mv " + TESTING_PATH + "* " + TRAINING_PATH);
             p.waitFor();
         } catch (Exception e) {
             System.out.println("!!!!! " + e + " !!!!!");

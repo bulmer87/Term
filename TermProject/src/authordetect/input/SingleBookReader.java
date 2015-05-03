@@ -1,5 +1,7 @@
 package authordetect.input;
 
+import authordetect.structure.TextArrayWritable;
+import authordetect.structure.WordCountMap;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FSDataInputStream;
 import org.apache.hadoop.fs.FileSystem;
@@ -11,8 +13,6 @@ import org.apache.hadoop.mapreduce.RecordReader;
 import org.apache.hadoop.mapreduce.TaskAttemptContext;
 import org.apache.hadoop.mapreduce.lib.input.FileSplit;
 import org.apache.hadoop.util.LineReader;
-import authordetect.structure.TextArrayWritable;
-import authordetect.structure.WordCountMap;
 import util.BookCounter;
 
 import java.io.IOException;
@@ -22,7 +22,7 @@ import java.util.Map;
 /**
  * Created by Qiu on 4/24/15.
  * This record reader takes a single book as input.
- * Output key: Text ---> " Title(Author)  / Maximum Word Count "
+ * Output key: Text ---> " Author(opt 0) or Book title(opt 1)  / Maximum Word Count "
  * Output value: TextArray ---> [ "Word A / Word A Count", ... ]
  */
 

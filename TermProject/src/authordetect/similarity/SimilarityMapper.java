@@ -1,5 +1,6 @@
 package authordetect.similarity;
 
+import authordetect.structure.Dictionary;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
@@ -11,7 +12,7 @@ import java.io.RandomAccessFile;
  * Created by yqiu on 4/3/15.
  * Input Key: LongWritable ---> Text Offset
  * Input Value: Text ---> "Title    (BCV)" ---> "Title  Word1=TFIDF1,Word2=TFIDF2 ..."
- * Output Key: Text ---> Title1_Title2
+ * Output Key: Text ---> "Book Title|Author
  * Output Value: DoubleWritable ---> Similarity
  */
 
@@ -21,8 +22,17 @@ public class SimilarityMapper extends Mapper<LongWritable, Text, Text, Text> {
 
     @Override
     protected void setup(Context context) throws IOException, InterruptedException {
-        randomAccessFile = new RandomAccessFile("authordetect", "r");
+
+        /**
+         * The bcv file for author
+         * Format should be:
+         * Author1 Word1=TFIDF1,Word2=TFIDF2
+         * Author2 Word1=TFIDF1,Word2=TFIDF2
+         * ...
+         */
+        randomAccessFile = new RandomAccessFile("./bcv", "r");
     }
+
 
 
     @Override
@@ -34,19 +44,19 @@ public class SimilarityMapper extends Mapper<LongWritable, Text, Text, Text> {
         String curBCV = curLineSplit[1];
 
         Dictionary d1 = getDictionary(curBCV);
-
-        randomAccessFile.seek(key.get());
+        randomAccessFile.seek(0);
+//        randomAccessFile.seek(key.get());
 
         String otherLine;
         while ((otherLine = randomAccessFile.readLine()) != null) {
             String[] otherLineSplit = otherLine.split("\\t");
-            String otherTitle = otherLineSplit[0];
-            String otherBCV = otherLineSplit[1];
-            Dictionary d2 = getDictionary(otherBCV);
+            String author = otherLineSplit[0];
+            String authorBCV = otherLineSplit[1];
+            Dictionary d2 = getDictionary(authorBCV);
 
             Double similarity = computeSimilarity(d1, d2);
 
-            Text outKey = new Text(curTitle + "|" + otherTitle);
+            Text outKey = new Text(curTitle + "|" + author);
             Text outVal = new Text(similarity.toString());
             context.write(outKey, outVal);
         }

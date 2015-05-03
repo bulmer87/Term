@@ -11,6 +11,11 @@ import java.io.IOException;
 
 /**
  * Created by Qiu on 4/24/15.
+ * Mapper to calculate TF-IDF
+ * Input Key: Text ---> " Title || Maximum word count "
+ * Input Value: TextArrayWritable ---> [ "Word A || Word A Count", ... ]
+ * Output Key: Text ---> Word
+ * Output Value: TextArrayWritable ---> [ Title, Word Count, Maximum Word Count]
  */
 public class TFIDFMapper extends Mapper<Text, TextArrayWritable, Text, TextArrayWritable> {
 

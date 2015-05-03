@@ -9,6 +9,11 @@ import java.util.ArrayList;
 
 /**
  * Created by Qiu on 4/24/15.
+ * This is the reducer that calculate TF-IDF
+ * Input Key: Text ---> Word
+ * Input Value: TextArrayWritable ---> [ Title, Word Count, Maximum Word Count ]
+ * Output Key: Text ---> Title
+ * Output Value: TextArrayWritable ---> [ Word, TF-IDF Value ]
  */
 
 public class TFIDFReducer extends Reducer<Text, TextArrayWritable, Text, TextArrayWritable> {

@@ -30,7 +30,7 @@ public class FileSelector {
     private ArrayList<String> books = new ArrayList<String>();
     public static final String TRAINING_PATH = "/TrainingSet/Test100/";
     public static final String TESTING_PATH = "/TestSet/";
-    public static int TESTING_SET_SIZE = 5;
+    public static int TESTING_SET_SIZE = 20;
 
     public boolean initialize() {
         try {
@@ -56,7 +56,7 @@ public class FileSelector {
                 System.err.println("Error in reading in files: " + e.getMessage());
             }
         } catch (Exception e) {
-            System.out.println("!!!!! " + e + " !!!!!");
+            System.out.println("!!!!! " + e.getStackTrace() + " !!!!!");
             return false;
         }
         return true;

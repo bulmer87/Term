@@ -1,0 +1,17 @@
+//FALSE POSITIVE// the book: True to Himself was predicted to have author: W. F. Markwick, D. D. and W. A. Smith, A. B. but was written by: Edward Stratemeyer and this author is contained in training set
+//TRUE POSITIVE// the book: Unconscious Memory is written by: Samuel Butler and this author is contained in training set
+//TRUE POSITIVE// the book: The Treasure-Train is written by: Arthur B. Reeve and this author is contained in training set
+//FALSE POSITIVE// the book: The Vampyre, a Tale was predicted to have author: W. F. Markwick, D. D. and W. A. Smith, A. B. but was written by: John Polidori and this author is contained in training set
+//FALSE POSITIVE// the book: The Tale of Freddie Firefly was predicted to have author: W. F. Markwick, D. D. and W. A. Smith, A. B. but was written by: Arthur Scott Bailey and this author is contained in training set
+//TRUE POSITIVE// the book: The Kiltartan Poetry Book is written by: Lady Gregory and this author is contained in training set
+//FALSE POSITIVE// the book: The Philanderer was predicted to have author: W. F. Markwick, D. D. and W. A. Smith, A. B. but was written by: George Bernard Shaw and this author is contained in training set
+//FALSE POSITIVE// the book: The Young Step-Mother was predicted to have author: W. F. Markwick, D. D. and W. A. Smith, A. B. but was written by: Charlotte M. Yonge and this author is contained in training set
+//FALSE POSITIVE// the book: The Young Musician  was predicted to have author: W. F. Markwick, D. D. and W. A. Smith, A. B. but was written by: Horatio Alger and this author is contained in training set
+//TRUE POSITIVE// the book: The Triple Marriage is written by: N. Destouches, translated by Frank J. Morlock and this author is contained in training set
+//FALSE POSITIVE// the book: Victory was predicted to have author: W. F. Markwick, D. D. and W. A. Smith, A. B. but was written by: Joseph Conrad and this author is contained in training set
+//FALSE POSITIVE// the book: Umboo, the Elephant was predicted to have author: W. F. Markwick, D. D. and W. A. Smith, A. B. but was written by: Howard R. Garis and this author is contained in training set
+//FALSE POSITIVE// the book: The Valley of the Giants was predicted to have author: W. F. Markwick, D. D. and W. A. Smith, A. B. but was written by: Peter B. Kyne and this author is contained in training set
+//FALSE POSITIVE// the book: The Motor Girls On Cedar Lake was predicted to have author: W. F. Markwick, D. D. and W. A. Smith, A. B. but was written by: Margaret Penrose and this author is contained in training set
+The F1 score for this run is: 0.4444444444444444
+The time took for matrix multiplication: 2.756
+

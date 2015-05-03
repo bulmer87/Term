@@ -30,6 +30,7 @@ public class FileSelector {
     private ArrayList<String> books = new ArrayList<String>();
     public static final String TRAINING_PATH = "/TrainingSet/Test100/";
     public static final String TESTING_PATH = "/TestSet/";
+    public static int TESTING_SET_SIZE = 5;
 
     public boolean initialize() {
         try {
@@ -89,7 +90,7 @@ public class FileSelector {
         Random randomSelector = new Random();
         ArrayList<String> copy = new ArrayList<String>();
         copy.addAll(books);
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < TESTING_SET_SIZE; i++) {
             int selected = randomSelector.nextInt(copy.size());
             try {
                 System.out.println("The new process is started on iteration " + i);

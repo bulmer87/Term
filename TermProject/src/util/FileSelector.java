@@ -44,6 +44,7 @@ public class FileSelector {
                 	if(line.startswith("Found"))
                 	{
                 		parse = true;
+                		continue;
                 	}
                 	if(parse == true)
                 		books.add(line);
@@ -92,7 +93,7 @@ public class FileSelector {
             try {
                 System.out.println("The new process is started on iteration " + i);
                 System.out.println("The file being copied is " + copy.get(selected));
-                Process p = Runtime.getRuntime().exec("/usr/local/hadoop-2.3.0/bin/hdfs dfs -mv /bulmer/input/" + copy.get(selected) + " /Test");//movement of file to selected directory
+                Process p = Runtime.getRuntime().exec("/usr/local/hadoop-2.3.0/bin/hdfs dfs -mv /TrainingSet/Test100/" + copy.get(selected) + " /TestSet");//movement of file to selected directory
                 System.out.println("The exit status is " + p.waitFor());//get exit status
                 System.out.println("Waiting over for iteration " + i);
                 copy.remove(selected);
@@ -106,7 +107,7 @@ public class FileSelector {
 
     public boolean moveBackFiles() {
         try {
-            Process p = Runtime.getRuntime().exec("/usr/local/hadoop-2.3.0/bin/hdfs dfs -mv /Test/* /bulmer/input");
+            Process p = Runtime.getRuntime().exec("/usr/local/hadoop-2.3.0/bin/hdfs dfs -mv /TestSet/* /TrainingSet/Test100/");
             p.waitFor();
         } catch (Exception e) {
             System.out.println("!!!!! " + e + " !!!!!");

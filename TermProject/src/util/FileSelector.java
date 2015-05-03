@@ -39,8 +39,14 @@ public class FileSelector {
                 DataInputStream in = new DataInputStream(instream);
                 BufferedReader buf = new BufferedReader(new InputStreamReader(in));
                 String line;
+                boolean parse = false;
                 while ((line = buf.readLine()) != null) {
-                    books.add(line);
+                	if(line.startswith("Found"))
+                	{
+                		parse = true;
+                	}
+                	if(parse == true)
+                		books.add(line);
                 }
                 buf.close();
             } catch (Exception e) {

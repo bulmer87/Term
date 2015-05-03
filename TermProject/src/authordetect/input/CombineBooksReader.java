@@ -1,12 +1,12 @@
 package authordetect.input;
 
+import authordetect.structure.TextArrayWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.InputSplit;
 import org.apache.hadoop.mapreduce.RecordReader;
 import org.apache.hadoop.mapreduce.TaskAttemptContext;
 import org.apache.hadoop.mapreduce.lib.input.CombineFileSplit;
 import org.apache.hadoop.mapreduce.lib.input.FileSplit;
-import authordetect.structure.TextArrayWritable;
 
 import java.io.IOException;
 
@@ -16,7 +16,7 @@ import java.io.IOException;
  * Output key is the current line
  * Output value is book title
  */
-public class CombineBooksReader extends RecordReader {
+public class CombineBooksReader extends RecordReader<Text, TextArrayWritable> {
 
     private int index;
     private SingleBookReader bookReader;

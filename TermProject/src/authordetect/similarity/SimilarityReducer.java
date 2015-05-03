@@ -15,9 +15,14 @@ public class SimilarityReducer extends Reducer<Text, Text, Text, Text> {
 
     @Override
     public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
+        Double minSim = 0.0;
         for (Text val : values) {
-            context.write(key, val);
-
+            Double curSim = Double.parseDouble(val.toString());
+            if (curSim < minSim) {
+                minSim = curSim;
+            }
         }
+        context.write(key, new Text(minSim.toString()));
+
     }
 }

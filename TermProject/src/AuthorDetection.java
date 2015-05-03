@@ -31,7 +31,7 @@ public class AuthorDetection {
     public static final int ITER = 3;
     public static final int GROUP_BY_AUTHER = 0;
     public static final int GROUP_BY_BOOK = 1;
-    public static final String FIRST_TEMP_PATH = "/bulmer/output/first/";
+    public static final String FIRST_TEMP_PATH = "/bulme/output/first/";
     public static final String SECOND_TEMP_PATH = "/bulmer/output/second/";
     public static final String THIRD_TEMP_PATH = "/bulmer/output/third/";
 

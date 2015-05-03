@@ -138,16 +138,26 @@ public class SingleBookReader extends RecordReader<Text, TextArrayWritable> {
 
         if (option == 0) {
             target = "Author";
+            if (lineString.startsWith(target)) {
+                title = lineString.split(":")[1].substring(1);
+                return true;
+            } else {
+                return false;
+            }
         } else {
             target = "Title";
-        }
-
-        if (lineString.startsWith(target)) {
-            title = lineString.split(":")[1].substring(1);
-            return true;
-        } else {
+            if (lineString.startsWith(target)) {
+                title = lineString.split(":")[1].substring(1);
+            }
+            if (lineString.startsWith("Author")) {
+                String author = lineString.split(":")[1].substring(1);
+                title = title.concat("_" + author);
+                return true;
+            }
             return false;
         }
+
+
     }
 
     private boolean isBookStart(Text line) {

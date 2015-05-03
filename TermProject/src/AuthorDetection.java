@@ -152,9 +152,9 @@ public class AuthorDetection {
         similarity_Job.setReducerClass(SimilarityReducer.class);
 
         // testing input path
-        Path fourthJobInputPath = new Path(inputPath + "test/" + iter + "part-r-00000");
+        Path fourthJobInputPath = new Path(inputPath + "test/" + iter + "/part-r-00000");
         // training data path
-        similarity_Job.addCacheFile(new URI(inputPath + "train/" + iter + "part-r-00000#bcv"));
+        similarity_Job.addCacheFile(new URI(inputPath + "train/" + iter + "/part-r-00000#bcv"));
 
         Path fourthJobOutputPath = new Path(outputPath);
 

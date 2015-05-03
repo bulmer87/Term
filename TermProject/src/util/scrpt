@@ -1,0 +1,4 @@
+#!/bin/bash
+
+$HADOOP_HOME/bin/hdfs dfs -ls /TrainingSet/Test100 |cut -f4 -d"/" > test
+

@@ -157,7 +157,7 @@ public class DataParser {
 		
 			for(String book : distanceMatrix.keySet())
 			{
-				String[] split = book.split(":");
+				String[] split = book.split("_");
 				String guessedAuthor = "NULL";
 				double smallestValue = 10000000;
 				HashMap<String,Double> temp = distanceMatrix.get(book);

@@ -41,7 +41,7 @@ public class FileSelector {
                 String line;
                 boolean parse = false;
                 while ((line = buf.readLine()) != null) {
-                	if(line.startswith("Found"))
+                	if(line.startsWith("Found"))
                 	{
                 		parse = true;
                 		continue;

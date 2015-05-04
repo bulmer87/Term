@@ -29,7 +29,7 @@ public class FileSelector {
 
     public static final String TRAINING_PATH = "/TrainingSet/1g/";
     public static final String TESTING_PATH = "/TestSet/";
-    public static int TESTING_SET_SIZE = 60;
+    public static int TESTING_SET_SIZE = 20;
     private ArrayList<String> books = new ArrayList<String>();
 
     public static void main(String[] args) throws InterruptedException {

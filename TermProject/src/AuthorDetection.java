@@ -15,6 +15,7 @@ import org.apache.hadoop.mapreduce.lib.input.NLineInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
+import org.apache.mahout.math.hadoop.DistributedRowMatrix;
 import util.FileSelector;
 
 import java.io.IOException;
@@ -27,7 +28,6 @@ import java.net.URISyntaxException;
  */
 public class AuthorDetection {
 
-
     public static final int ITER = 3;
     public static final int GROUP_BY_AUTHER = 0;
     public static final int GROUP_BY_BOOK = 1;
@@ -39,6 +39,8 @@ public class AuthorDetection {
 
         Configuration configuration = new Configuration();
         FileSelector fileSelector = new FileSelector();
+
+        DistributedRowMatrix drMatrix;
         for (int i = 0; i < ITER; i++) {
             randFileSelect(fileSelector);
             computeTFIDF(configuration, GROUP_BY_AUTHER, FileSelector.TRAINING_PATH, FIRST_TEMP_PATH + "train/" + i);// Training set

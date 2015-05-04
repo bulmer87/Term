@@ -16,63 +16,57 @@ public class DataParser {
     int falseNeg = 0;
 
     public void readin(String infileOne, String infileTwo) {
-        File trainingFolder = new File(infileOne);
-        File[] files = trainingFolder.listFiles();
-        for (File trainingFile : files) {
+        File trainingFile = new File(infileOne);
 
-            try {
-                FileInputStream instream = new FileInputStream(trainingFile);
-                DataInputStream in = new DataInputStream(instream);
-                BufferedReader buf = new BufferedReader(new InputStreamReader(in));
-                String line = "";
-                while ((line = buf.readLine()) != null) {
-                    if (line.isEmpty() || line.trim().length() == 0) {
-                        continue;
-                    }
-                    HashMap<String, Double> map = new HashMap<String, Double>();
-                    String[] sp = line.split("\\t");
-                    String[] sp2 = sp[1].split(",");
-                    for (int i = 0; i < sp2.length; i++) {
-                        String[] s = sp2[i].split("=");
-                        map.put(s[0].trim(), Double.parseDouble(s[1].trim()));
-                    }
-                    authors.put(sp[0].trim(), map);
+        try {
+            FileInputStream instream = new FileInputStream(trainingFile);
+            DataInputStream in = new DataInputStream(instream);
+            BufferedReader buf = new BufferedReader(new InputStreamReader(in));
+            String line = "";
+            while ((line = buf.readLine()) != null) {
+                if (line.isEmpty() || line.trim().length() == 0) {
+                    continue;
                 }
-                buf.close();
+                HashMap<String, Double> map = new HashMap<String, Double>();
+                String[] sp = line.split("\\t");
+                String[] sp2 = sp[1].split(",");
+                for (int i = 0; i < sp2.length; i++) {
+                    String[] s = sp2[i].split("=");
+                    map.put(s[0].trim(), Double.parseDouble(s[1].trim()));
+                }
+                authors.put(sp[0].trim(), map);
+            }
+            buf.close();
 //            } catch (Exception e) {
 //                System.err.println("!!!!! " + e + " !!!!!!!!!");
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-        File testingFolder = new File(infileTwo);
-        for (File testingFile : testingFolder.listFiles()) {
-            try {
-                FileInputStream instream = new FileInputStream(testingFile);
-                DataInputStream in = new DataInputStream(instream);
-                BufferedReader buf = new BufferedReader(new InputStreamReader(in));
-                String line = "";
-                while ((line = buf.readLine()) != null) {
-                    if (line.isEmpty() || line.trim().length() == 0) {
-                        continue;
-                    }
-                    HashMap<String, Double> map = new HashMap<String, Double>();
-                    String[] sp = line.split("\\t");
-                    String[] sp2 = sp[1].split(",");
-                    for (int i = 0; i < sp2.length; i++) {
-                        String[] s = sp2[i].split("=");
-                        map.put(s[0].trim(), Double.parseDouble(s[1].trim()));
-                    }
-                    books.put(sp[0].trim(), map);
+        File testingFile = new File(infileTwo);
+        try {
+            FileInputStream instream = new FileInputStream(testingFile);
+            DataInputStream in = new DataInputStream(instream);
+            BufferedReader buf = new BufferedReader(new InputStreamReader(in));
+            String line = "";
+            while ((line = buf.readLine()) != null) {
+                if (line.isEmpty() || line.trim().length() == 0) {
+                    continue;
                 }
-                buf.close();
-            } catch (Exception e) {
-                System.err.println("!!!!! " + e + " !!!!!!!!!");
+                HashMap<String, Double> map = new HashMap<String, Double>();
+                String[] sp = line.split("\\t");
+                String[] sp2 = sp[1].split(",");
+                for (int i = 0; i < sp2.length; i++) {
+                    String[] s = sp2[i].split("=");
+                    map.put(s[0].trim(), Double.parseDouble(s[1].trim()));
+                }
+                books.put(sp[0].trim(), map);
             }
-
+            buf.close();
+        } catch (Exception e) {
+            System.err.println("!!!!! " + e + " !!!!!!!!!");
         }
 
     }
@@ -212,17 +206,22 @@ public class DataParser {
     }
 
     public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
-        DataParser myParser = new DataParser();
-        myParser.readin(args[0], args[1]);
-        //myParser.outputMaps(myParser.authors);
-        //myParser.outputMaps(myParser.books);
-        double normValue = myParser.computeDistanceMatrix();
+        for (int i = 0; i < 3; i++) {
+            DataParser myParser = new DataParser();
+            String trainingPath = args[0] + "/" + i + "/part-r-00000";
+            String testPath = args[1] + "/" + i + "/part-r-00000";
+            myParser.readin(trainingPath, testPath);
+            //myParser.outputMaps(myParser.authors);
+            //myParser.outputMaps(myParser.books);
+            double normValue = myParser.computeDistanceMatrix();
 
-        //System.out.println("This is the largest distance found : " + normValue + "\n\n");
-        //System.out.println("This is time took: " + myParser.time + "\n\n");
-        myParser.normalize(normValue);
-        myParser.outputMaps(myParser.distanceMatrix);
-        myParser.outputResults(args[2], Double.parseDouble(args[3]));
+            //System.out.println("This is the largest distance found : " + normValue + "\n\n");
+            //System.out.println("This is time took: " + myParser.time + "\n\n");
+            myParser.normalize(normValue);
+            myParser.outputMaps(myParser.distanceMatrix);
+            myParser.outputResults(args[2] + i, Double.parseDouble(args[3]));
+        }
+
 
     }
 }

@@ -1,17 +1,36 @@
-//FALSE POSITIVE// the book: True to Himself was predicted to have author: W. F. Markwick, D. D. and W. A. Smith, A. B. but was written by: Edward Stratemeyer and this author is contained in training set
-//TRUE POSITIVE// the book: Unconscious Memory is written by: Samuel Butler and this author is contained in training set
-//TRUE POSITIVE// the book: The Treasure-Train is written by: Arthur B. Reeve and this author is contained in training set
-//FALSE POSITIVE// the book: The Vampyre, a Tale was predicted to have author: W. F. Markwick, D. D. and W. A. Smith, A. B. but was written by: John Polidori and this author is contained in training set
-//FALSE POSITIVE// the book: The Tale of Freddie Firefly was predicted to have author: W. F. Markwick, D. D. and W. A. Smith, A. B. but was written by: Arthur Scott Bailey and this author is contained in training set
-//TRUE POSITIVE// the book: The Kiltartan Poetry Book is written by: Lady Gregory and this author is contained in training set
-//FALSE POSITIVE// the book: The Philanderer was predicted to have author: W. F. Markwick, D. D. and W. A. Smith, A. B. but was written by: George Bernard Shaw and this author is contained in training set
-//FALSE POSITIVE// the book: The Young Step-Mother was predicted to have author: W. F. Markwick, D. D. and W. A. Smith, A. B. but was written by: Charlotte M. Yonge and this author is contained in training set
+//TRUE POSITIVE// the book: The Paradise Mystery is written by: J. S. Fletcher and this author is contained in training set
+//TRUE POSITIVE// the book: Tractatus Logico-Philosophicus is written by: Ludwig Wittgenstein and this author is contained in training set
+//TRUE POSITIVE// the book: Lectures and Essays  is written by: T.H. Huxley and this author is contained in training set
 //FALSE POSITIVE// the book: The Young Musician  was predicted to have author: W. F. Markwick, D. D. and W. A. Smith, A. B. but was written by: Horatio Alger and this author is contained in training set
-//TRUE POSITIVE// the book: The Triple Marriage is written by: N. Destouches, translated by Frank J. Morlock and this author is contained in training set
-//FALSE POSITIVE// the book: Victory was predicted to have author: W. F. Markwick, D. D. and W. A. Smith, A. B. but was written by: Joseph Conrad and this author is contained in training set
-//FALSE POSITIVE// the book: Umboo, the Elephant was predicted to have author: W. F. Markwick, D. D. and W. A. Smith, A. B. but was written by: Howard R. Garis and this author is contained in training set
-//FALSE POSITIVE// the book: The Valley of the Giants was predicted to have author: W. F. Markwick, D. D. and W. A. Smith, A. B. but was written by: Peter B. Kyne and this author is contained in training set
-//FALSE POSITIVE// the book: The Motor Girls On Cedar Lake was predicted to have author: W. F. Markwick, D. D. and W. A. Smith, A. B. but was written by: Margaret Penrose and this author is contained in training set
-The F1 score for this run is: 0.4444444444444444
-The time took for matrix multiplication: 2.756
+//TRUE POSITIVE// the book: The Poisoned Pen is written by: Arthur B. Reeve and this author is contained in training set
+//TRUE POSITIVE// the book: Citation and Examination of William Shakspeare is written by: Walter Savage Landor and this author is contained in training set
+//TRUE POSITIVE// the book: The Prince of India is written by: Lew. Wallace and this author is contained in training set
+//TRUE POSITIVE// the book: The Voyage of Verrazzano is written by: Henry C. Murphy and this author is contained in training set
+//TRUE POSITIVE// the book: The Rover Boys in New York is written by: Arthur M. Winfield and this author is contained in training set
+//TRUE POSITIVE// the book: The Evolution of Man, V.1. is written by: Ernst Haeckel and this author is contained in training set
+//TRUE POSITIVE// the book: Viola Gwyn is written by: George Barr McCutcheon and this author is contained in training set
+//TRUE POSITIVE// the book: Umboo, the Elephant is written by: Howard R. Garis and this author is contained in training set
+//FALSE POSITIVE// the book: Two Little Women on a Holiday was predicted to have author: W. F. Markwick, D. D. and W. A. Smith, A. B. but was written by: Carolyn Wells and this author is contained in training set
+//TRUE POSITIVE// the book: Try and Trust is written by: Horatio Alger and this author is contained in training set
+//TRUE POSITIVE// the book: The Prince and Betty is written by: P. G. Wodehouse and this author is contained in training set
+//TRUE POSITIVE// the book: The Meaning of Truth is written by: William James and this author is contained in training set
+//TRUE POSITIVE// the book: The Story of Rome From the Earliest Times to the End of the Republic is written by: Arthur Gilman and this author is contained in training set
+//TRUE POSITIVE// the book: Told in the East is written by: Talbot Mundy and this author is contained in training set
+//TRUE POSITIVE// the book: Time and Change is written by: John Burroughs and this author is contained in training set
+//TRUE POSITIVE// the book: The Old Stone House is written by: Anne March and this author is contained in training set
+//TRUE POSITIVE// the book: The Recreations of A Country Parson is written by: A. K. H. Boyd and this author is contained in training set
+//TRUE POSITIVE// the book: The Real Diary of a Real Boy is written by: Henry A. Shute and this author is contained in training set
+//TRUE POSITIVE// the book: Voyages of Peter Esprit Radisson is written by: Peter Esprit Radisson and this author is contained in training set
+//TRUE POSITIVE// the book: Marguerite Verne is written by: Agatha Armour and this author is contained in training set
+//TRUE POSITIVE// the book: The Love Sonnets of a Car Conductor is written by: Wallace Irwin and this author is contained in training set
+//FALSE POSITIVE// the book: The Adventures of Ferdinand Count Fathom, Part II. was predicted to have author: W. F. Markwick, D. D. and W. A. Smith, A. B. but was written by: Tobias Smollett and this author is contained in training set
+//TRUE POSITIVE// the book: The True Citizen, How To Become One is written by: W. F. Markwick, D. D. and W. A. Smith, A. B. and this author is contained in training set
+//TRUE POSITIVE// the book: This Simian World is written by: Clarence Day Jr. and this author is contained in training set
+//TRUE POSITIVE// the book: Tales of the Road is written by: Charles N. Crewdson and this author is contained in training set
+//TRUE POSITIVE// the book: Tales of Chinatown is written by: Sax Rohmer and this author is contained in training set
+//TRUE POSITIVE// the book: The Maid of the Whispering Hills is written by: Vingie E. Roe and this author is contained in training set
+//TRUE POSITIVE// the book: A Terrible Secret is written by: May Agnes Fleming and this author is contained in training set
+//TRUE POSITIVE// the book: The Luck of Roaring Camp and Other Tales is written by: Bret Harte and this author is contained in training set
+The F1 score for this run is: 0.922077922077922
+The time took for matrix multiplication: 5.57
 

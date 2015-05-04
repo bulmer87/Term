@@ -49,3 +49,5 @@ out/production
 /input/
 output/
 test
+
+prediction*

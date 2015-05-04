@@ -50,7 +50,7 @@ public class AuthorDetection {
             computeBCV(configuration, FIRST_TEMP_PATH + "train/" + i, SECOND_TEMP_PATH + "train/" + i);
             computeBCV(configuration, FIRST_TEMP_PATH + "test/" + i, SECOND_TEMP_PATH + "test/" + i);
 
-            computeSimilarity(configuration, SECOND_TEMP_PATH, THIRD_TEMP_PATH + i, i);
+//            computeSimilarity(configuration, SECOND_TEMP_PATH, THIRD_TEMP_PATH + i, i);
         }
 
 

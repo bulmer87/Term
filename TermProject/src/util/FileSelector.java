@@ -27,10 +27,24 @@ import java.util.Random;
 
 public class FileSelector {
 
-    private ArrayList<String> books = new ArrayList<String>();
-    public static final String TRAINING_PATH = "/TrainingSet/Test100/";
+    public static final String TRAINING_PATH = "/TrainingSet/1g/";
     public static final String TESTING_PATH = "/TestSet/";
-    public static int TESTING_SET_SIZE = 20;
+    public static int TESTING_SET_SIZE = 60;
+    private ArrayList<String> books = new ArrayList<String>();
+
+    public static void main(String[] args) throws InterruptedException {
+        FileSelector s = new FileSelector();
+        if (s.initialize() == false) {
+            System.out.println("Error in initilize");
+        }
+        if (s.moveFilesTo() == false) {
+            System.out.println("Error in move files");
+        }
+        Thread.sleep(10000);
+        if (s.moveBackFiles() == false) {
+            System.out.println("Error in move back files");
+        }
+    }
 
     public boolean initialize() {
         try {
@@ -56,7 +70,7 @@ public class FileSelector {
                 System.err.println("Error in reading in files: " + e.getMessage());
             }
         } catch (Exception e) {
-            System.out.println("!!!!! " + e.getStackTrace() + " !!!!!");
+            System.out.println("!!!!! " + e + " !!!!!");
             return false;
         }
         return true;
@@ -116,19 +130,5 @@ public class FileSelector {
             return false;
         }
         return true;
-    }
-
-    public static void main(String[] args) throws InterruptedException {
-        FileSelector s = new FileSelector();
-        if (s.initialize() == false) {
-            System.out.println("Error in initilize");
-        }
-        if (s.moveFilesTo() == false) {
-            System.out.println("Error in move files");
-        }
-        Thread.sleep(10000);
-        if (s.moveBackFiles() == false) {
-            System.out.println("Error in move back files");
-        }
     }
 }

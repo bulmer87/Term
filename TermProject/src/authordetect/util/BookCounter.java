@@ -1,4 +1,4 @@
-package util;
+package authordetect.util;
 
 /**
  * Created by Qiu on 4/24/2015.

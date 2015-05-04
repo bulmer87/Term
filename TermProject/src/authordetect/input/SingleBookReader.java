@@ -13,7 +13,7 @@ import org.apache.hadoop.mapreduce.RecordReader;
 import org.apache.hadoop.mapreduce.TaskAttemptContext;
 import org.apache.hadoop.mapreduce.lib.input.FileSplit;
 import org.apache.hadoop.util.LineReader;
-import util.BookCounter;
+import authordetect.util.BookCounter;
 
 import java.io.IOException;
 import java.util.Iterator;

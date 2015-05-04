@@ -5,7 +5,7 @@ import org.apache.hadoop.io.Writable;
 import org.apache.hadoop.mapreduce.Counter;
 import org.apache.hadoop.mapreduce.Mapper;
 import authordetect.structure.TextArrayWritable;
-import util.BookCounter;
+import authordetect.util.BookCounter;
 
 import java.io.IOException;
 

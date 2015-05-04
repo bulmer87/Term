@@ -1,3 +1,5 @@
+package authordetect;
+
 import authordetect.bcv.BCVMapper;
 import authordetect.bcv.BCVReducer;
 import authordetect.input.CombineBooksInputFormat;
@@ -16,7 +18,7 @@ import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import org.apache.mahout.math.hadoop.DistributedRowMatrix;
-import util.FileSelector;
+import authordetect.util.FileSelector;
 
 import java.io.IOException;
 import java.net.URI;
@@ -34,6 +36,7 @@ public class AuthorDetection {
     public static final String FIRST_TEMP_PATH = "/bulmer/output/first/";
     public static final String SECOND_TEMP_PATH = "/bulmer/output/second/";
     public static final String THIRD_TEMP_PATH = "/bulmer/output/third/";
+    public static final int TOP_TFIDF = 100;
 
     public static void main(String[] args) throws InterruptedException, IOException, ClassNotFoundException, URISyntaxException {
 

@@ -1,9 +1,13 @@
 package authordetect.bcv;
 
+import authordetect.AuthorDetection;
+import authordetect.structure.WordTFIDF;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by Qiu on 3/21/15.
@@ -14,6 +18,13 @@ import java.io.IOException;
  */
 public class BCVReducer extends Reducer<Text, Text, Text, Text> {
 
+    private ArrayList<WordTFIDF> wordTFIDFs;
+
+    @Override
+    protected void setup(Context context) throws IOException, InterruptedException {
+        wordTFIDFs = new ArrayList<WordTFIDF>();
+    }
+
     @Override
     protected void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
 
@@ -21,12 +32,20 @@ public class BCVReducer extends Reducer<Text, Text, Text, Text> {
 
         for (Text val : values) {
             String valStr = val.toString();
-            outStr = outStr + "," + valStr;
+            String word = valStr.split("=")[0];
+            Double tfidf = Double.parseDouble(valStr.split("=")[1]);
+            WordTFIDF element = new WordTFIDF(word, tfidf);
+            wordTFIDFs.add(element);
         }
 
-        Text outVal = new Text(outStr.substring(1));
-
-        context.write(key, outVal);
+        Collections.sort(wordTFIDFs);
+        int idx = wordTFIDFs.size();
+        for (int i = 0; i < AuthorDetection.TOP_TFIDF; i++) {
+            WordTFIDF wordTFIDF = wordTFIDFs.get(--idx);
+            String outvalStr = wordTFIDF.getWord() + "=" + wordTFIDF.getTfidf();
+            Text outVal = new Text(outvalStr);
+            context.write(key, outVal);
+        }
 
     }
 }

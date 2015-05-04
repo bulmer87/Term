@@ -1,4 +1,4 @@
-package util;
+package authordetect.util;
 
 import java.io.*;
 import java.util.ArrayList;

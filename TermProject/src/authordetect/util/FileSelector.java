@@ -1,4 +1,4 @@
-package util;
+package authordetect.util;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;

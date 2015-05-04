@@ -8,7 +8,9 @@ import java.util.HashMap;
 public class DataParser {
     public HashMap<String, HashMap<String, Double>> authors = new HashMap<String, HashMap<String, Double>>();
     public HashMap<String, HashMap<String, Double>> books = new HashMap<String, HashMap<String, Double>>();
-    public HashMap<String, HashMap<String, Double>> distanceMatrix = new HashMap<String, HashMap<String, Double>>();
+    public HashMap<String, HashMap<String, Double>> euclideanMat = new HashMap<String, HashMap<String, Double>>();
+    public HashMap<String, HashMap<String, Double>> cosineMat = new HashMap<String, HashMap<String, Double>>();
+
     public ArrayList<String> findPositives = new ArrayList<String>();
     double time = 0;
     int truePos = 0;
@@ -117,76 +119,73 @@ public class DataParser {
                 bookToAuthor.put(author, similarity); // put that authors name and similarity into the hashmap for that book
 
             }
-            distanceMatrix.put(book, bookToAuthor);// for that book put in the hashmap that contains the name and similarities for all authors.
+            euclideanMat.put(book, bookToAuthor);// for that book put in the hashmap that contains the name and similarities for all authors.
         }
         final double endTime = System.currentTimeMillis();
         time = (endTime - startTime) / 1000;
         return largestDistance; // this will be returned and fed into normalize
     }
 
-    public void computeCosineDistanceMatrix()
-	{
-		final double startTime = System.currentTimeMillis();
-	
-		for(String book : books.keySet()) // iterate through all the books
-		{
-			HashMap <String,Double> bookToAuthor = new HashMap<String,Double>();  // create a mapping of authors and their distance to that book
-			String[] authorSplit = book.split("_");//split to get the author appended to book
-			for(String author : authors.keySet()) // for each book iterate through all the possible authors
-			{
-				if(authorSplit[1].equals(author))//if the author appended to book matches the training set author add them to the array list to confirm positives
-				{
-					findPositives.add(authorSplit[1]);//this will only add the author if the true author appended to book matches the author that occurs in the training set 
-				}
-				double similarity = 0.0;
-				double dotProduct = 0.0;
-				double magAuthor = 0.0;
-				double magBook = 0.0;
-				HashMap<String,Double> bookMap = books.get(book);// hold the hashmap of TFIDF values that the specific book has for each letter 
-				HashMap<String, Double> authorMap = authors.get(author);// hold the hashmap of TFIDF values that the specific author has for each letter
-				for(String letter : authorMap.keySet())// iterate through the authors TFIDF letters and see if they are contained within the Books TFIDF letters
-				{
-					if(bookMap.containsKey(letter))// if both maps contain the same letter compute the distance between the two
-					{
-						dotProduct += authorMap.get(letter) * bookMap.get(letter);
-						//System.out.println("Success for Book " + book + " and " + author + " the word // " + letter + " // match!\n Here is similarity so far : " + similarity + "\n\n");
-					}
-				}
-				for(String letter : authorMap.keySet())
-				{
-					magAuthor += Math.pow(author.get(letter),2);
-				}
-				magAuthor = Math.sqrt(magAuthor);
-				for(String letter : bookMap.keySet())
-				{
-					magBook += Math.pow(bookMap.get(letter),2);
-				}
-				magBook = Math.sqrt(magBook);
-				similarity = dotProduct/(magAuthor*magBook);  
-				if(similarity > largestDistance) // check to see if that value is the largest value yet to normalize the distances
-				{
-					largestDistance = similarity;
-				}
-				bookToAuthor.put(author, similarity); // put that authors name and similarity into the hashmap for that book
-				
-			}
-			distanceMatrix.put(book, bookToAuthor);// for that book put in the hashmap that contains the name and similarities for all authors.
-		}
-		final double endTime = System.currentTimeMillis();
-		time = (endTime - startTime)/1000;
-	}
-    
+    public void computeCosineDistanceMatrix() {
+        final double startTime = System.currentTimeMillis();
+
+        for (String book : books.keySet()) // iterate through all the books
+        {
+            HashMap<String, Double> bookToAuthor = new HashMap<String, Double>();  // create a mapping of authors and their distance to that book
+            String[] authorSplit = book.split("_");//split to get the author appended to book
+            for (String author : authors.keySet()) // for each book iterate through all the possible authors
+            {
+                if (authorSplit[1].equals(author))//if the author appended to book matches the training set author add them to the array list to confirm positives
+                {
+                    findPositives.add(authorSplit[1]);//this will only add the author if the true author appended to book matches the author that occurs in the training set
+                }
+                double similarity = 0.0;
+                double dotProduct = 0.0;
+                double magAuthor = 0.0;
+                double magBook = 0.0;
+                HashMap<String, Double> bookMap = books.get(book);// hold the hashmap of TFIDF values that the specific book has for each letter
+                HashMap<String, Double> authorMap = authors.get(author);// hold the hashmap of TFIDF values that the specific author has for each letter
+                for (String letter : authorMap.keySet())// iterate through the authors TFIDF letters and see if they are contained within the Books TFIDF letters
+                {
+                    if (bookMap.containsKey(letter))// if both maps contain the same letter compute the distance between the two
+                    {
+                        dotProduct += authorMap.get(letter) * bookMap.get(letter);
+                        //System.out.println("Success for Book " + book + " and " + author + " the word // " + letter + " // match!\n Here is similarity so far : " + similarity + "\n\n");
+                    }
+                }
+                for (Double tfidf : authorMap.values()) {
+                    magAuthor += Math.pow(tfidf, 2);
+                }
+                magAuthor = Math.sqrt(magAuthor);
+                for (Double tfidf : bookMap.values()) {
+                    magBook += Math.pow(tfidf, 2);
+                }
+                magBook = Math.sqrt(magBook);
+                similarity = dotProduct / (magAuthor * magBook);
+//                if (similarity > largestDistance) // check to see if that value is the largest value yet to normalize the distances
+//                {
+//                    largestDistance = similarity;
+//                }
+                bookToAuthor.put(author, similarity); // put that authors name and similarity into the hashmap for that book
+
+            }
+            cosineMat.put(book, bookToAuthor);// for that book put in the hashmap that contains the name and similarities for all authors.
+        }
+        final double endTime = System.currentTimeMillis();
+        time = (endTime - startTime) / 1000;
+    }
+
     public void normalize(double normalizedNum)//normalize the values to get a bound from 0 to 1 to set a threshold that is accurate from either 0 to 1;
     {
-        for (String bookNames : distanceMatrix.keySet())// go through all the books that have been compared to authors and have a distance between them
+        for (String bookNames : euclideanMat.keySet())// go through all the books that have been compared to authors and have a distance between them
         {
-            HashMap<String, Double> retMap = distanceMatrix.get(bookNames);//get the hashmap at that book title. This map holds the name of the authors and their distance between the book
+            HashMap<String, Double> retMap = euclideanMat.get(bookNames);//get the hashmap at that book title. This map holds the name of the authors and their distance between the book
             for (String retAuthor : retMap.keySet())// get all the distances between authors that pertain to that book and normalize them based off the highest distance found.
             {
                 double normalized = retMap.get(retAuthor) / normalizedNum;
                 retMap.put(retAuthor, normalized); // replace that authors distance value with a normalized distance value
             }
-            distanceMatrix.put(bookNames, retMap); // replace that book with a hashmap of normalized values for all the authors
+            euclideanMat.put(bookNames, retMap); // replace that book with a hashmap of normalized values for all the authors
         }
     }
 
@@ -194,11 +193,11 @@ public class DataParser {
         try {
             PrintWriter outWriter = new PrintWriter(infile, "UTF8");
 
-            for (String book : distanceMatrix.keySet()) {
+            for (String book : euclideanMat.keySet()) {
                 String[] split = book.split("_");
                 String guessedAuthor = "NULL";
                 double smallestValue = 10000000;
-                HashMap<String, Double> temp = distanceMatrix.get(book);
+                HashMap<String, Double> temp = euclideanMat.get(book);
                 for (String author : temp.keySet()) {
                     if (temp.get(author) < smallestValue && temp.get(author) <= threshold) {
                         guessedAuthor = author;
@@ -217,41 +216,34 @@ public class DataParser {
         }
 
     }
-    
-    public void outputResultsCosine(String infile, double threshold) throws FileNotFoundException, UnsupportedEncodingException
-	{
-		try
-		{
-			PrintWriter outWriter = new PrintWriter(infile,"UTF8");
-		
-			for(String book : distanceMatrix.keySet())
-			{
-				String[] split = book.split("_");
-				String guessedAuthor = "NULL";
-				double smallestValue = 10000000;
-				HashMap<String,Double> temp = distanceMatrix.get(book);
-				for(String author : temp.keySet())
-				{
-					if(temp.get(author) > smallestValue && temp.get(author) >= threshold)
-					{
-						guessedAuthor = author;
-						smallestValue = temp.get(author);
-					}
-					System.out.println("Book: " + split[0] + " smallest value: " + smallestValue + " guessedAuthor " + guessedAuthor);
-				}
-				computePN(guessedAuthor,split[1],split[0],outWriter);
-			}
-			double F1 = computeF1Score();
-			outWriter.println("The F1 score for this run is: " + F1);
-			outWriter.println("The time took for matrix multiplication: " + time + "\n");
-			outWriter.close();
-		}
-		catch(Exception e)
-		{
-			System.out.println("!!!!!! " + e + " !!!!!!!!\n");
-		}
-		
-	}
+
+    public void outputResultsCosine(String infile, double threshold) throws FileNotFoundException, UnsupportedEncodingException {
+        try {
+            PrintWriter outWriter = new PrintWriter(infile, "UTF8");
+
+            for (String book : cosineMat.keySet()) {
+                String[] split = book.split("_");
+                String guessedAuthor = "NULL";
+                double largestValue = -1;
+                HashMap<String, Double> temp = cosineMat.get(book);
+                for (String author : temp.keySet()) {
+                    if (temp.get(author) > largestValue && temp.get(author) >= threshold) {
+                        guessedAuthor = author;
+                        largestValue = temp.get(author);
+                    }
+                    System.out.println("Book: " + split[0] + " smallest value: " + largestValue + " guessedAuthor " + guessedAuthor);
+                }
+                computePN(guessedAuthor, split[1], split[0], outWriter);
+            }
+            double F1 = computeF1Score();
+            outWriter.println("The F1 score for this run is: " + F1);
+            outWriter.println("The time took for matrix multiplication: " + time + "\n");
+            outWriter.close();
+        } catch (Exception e) {
+            System.out.println("!!!!!! " + e + " !!!!!!!!\n");
+        }
+
+    }
 
     public void computePN(String guessedAuthor, String trueAuthor, String book, PrintWriter outWriter) {
         if (guessedAuthor.equals(trueAuthor) && findPositives.contains(trueAuthor)) {
@@ -301,14 +293,14 @@ public class DataParser {
             //myParser.outputMaps(myParser.authors);
             //myParser.outputMaps(myParser.books);
             double normValue = myParser.computeDistanceMatrix();
-
             //System.out.println("This is the largest distance found : " + normValue + "\n\n");
             //System.out.println("This is time took: " + myParser.time + "\n\n");
+            myParser.computeCosineDistanceMatrix();
+            myParser.outputResultsCosine(args[4] + i, Double.parseDouble(args[5]));
             myParser.normalize(normValue);
-            myParser.outputMaps(myParser.distanceMatrix);
+            //   myParser.outputMaps(myParser.euclideanMat);
             myParser.outputResults(args[2] + i, Double.parseDouble(args[3]));
         }
-
 
     }
 }

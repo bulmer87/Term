@@ -16,6 +16,7 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.NLineInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import org.apache.hadoop.mapreduce.lib.output.MultipleOutputs;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import org.apache.mahout.math.hadoop.DistributedRowMatrix;
 import authordetect.util.FileSelector;
@@ -128,6 +129,9 @@ public class AuthorDetection {
         bcv_Job.setInputFormatClass(TextInputFormat.class);
 
         FileOutputFormat.setOutputPath(bcv_Job, new Path(outputPath));
+
+        MultipleOutputs.addNamedOutput(bcv_Job, "euclidean", TextOutputFormat.class, Text.class, Text.class);
+        MultipleOutputs.addNamedOutput(bcv_Job, "cosine", TextOutputFormat.class, Text.class, Text.class);
 
         bcv_Job.setOutputFormatClass(TextOutputFormat.class);
 

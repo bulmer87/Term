@@ -4,6 +4,7 @@ import authordetect.AuthorDetection;
 import authordetect.structure.WordTFIDF;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
+import org.apache.hadoop.mapreduce.lib.output.MultipleOutputs;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,10 +20,12 @@ import java.util.Collections;
 public class BCVReducer extends Reducer<Text, Text, Text, Text> {
 
     private ArrayList<WordTFIDF> wordTFIDFs;
+    private MultipleOutputs mos;
 
     @Override
     protected void setup(Context context) throws IOException, InterruptedException {
         wordTFIDFs = new ArrayList<WordTFIDF>();
+        mos = new MultipleOutputs<Text, Text>(context);
     }
 
     @Override
@@ -31,13 +34,20 @@ public class BCVReducer extends Reducer<Text, Text, Text, Text> {
         String outStr = "";
 
         for (Text val : values) {
+            // for calculating cosine similarity
             String valStr = val.toString();
             String word = valStr.split("=")[0];
             Double tfidf = Double.parseDouble(valStr.split("=")[1]);
             WordTFIDF element = new WordTFIDF(word, tfidf);
             wordTFIDFs.add(element);
+            // for calculating euclidean distance
+            outStr = outStr + "," + valStr;
         }
 
+        //write out all tfidf
+        mos.write("euclidean", key, new Text(outStr.substring(1)));
+
+        //write out only top tfidf
         Collections.sort(wordTFIDFs);
         int idx = wordTFIDFs.size();
         for (int i = 0; i < AuthorDetection.TOP_TFIDF; i++) {
@@ -45,6 +55,7 @@ public class BCVReducer extends Reducer<Text, Text, Text, Text> {
             String outvalStr = wordTFIDF.getWord() + "=" + wordTFIDF.getTfidf();
             Text outVal = new Text(outvalStr);
             context.write(key, outVal);
+            mos.write("cosine", key, outVal);
         }
 
     }

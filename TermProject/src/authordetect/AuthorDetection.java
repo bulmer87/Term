@@ -56,21 +56,22 @@ public class AuthorDetection {
             fileSelector.moveBackFiles();
         }
 
+        // get book/author's word vector
         for (int i = 0; i < ITER; i++) {
             computeBCV(configuration, FIRST_TEMP_PATH + "train/" + i, SECOND_TEMP_PATH + "train/" + i);
             computeBCV(configuration, FIRST_TEMP_PATH + "test/" + i, SECOND_TEMP_PATH + "test/" + i);
-
 //            computeSimilarity(configuration, SECOND_TEMP_PATH, THIRD_TEMP_PATH + i, i);
         }
+
 
 
     }
 
     public static void randFileSelect(FileSelector s) throws InterruptedException {
-        if (s.initialize() == false) {
+        if (!s.initialize()) {
             System.out.println("Error in initilize");
         }
-        if (s.moveFilesTo() == false) {
+        if (!s.moveFilesTo()) {
             System.out.println("Error in move files");
         }
 //        Thread.sleep(10000);

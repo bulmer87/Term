@@ -73,7 +73,7 @@ public class DataParser {
 
     }
 
-    public double computeDistanceMatrix() {
+    public double computeEuclideanDistanceMatrix() {
         final double startTime = System.currentTimeMillis();
         double largestDistance = -1000000.0;
 
@@ -285,22 +285,31 @@ public class DataParser {
     }
 
     public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
+
+        // for euclidean distance
         for (int i = 0; i < 3; i++) {
             DataParser myParser = new DataParser();
-            String trainingPath = args[0] + "/" + i + "/part-r-00000";
-            String testPath = args[1] + "/" + i + "/part-r-00000";
+            String trainingPath = args[0] + "/" + i + "/euclidean-r-00000";
+            String testPath = args[1] + "/" + i + "/euclidean-r-00000";
             myParser.readin(trainingPath, testPath);
             //myParser.outputMaps(myParser.authors);
             //myParser.outputMaps(myParser.books);
-            double normValue = myParser.computeDistanceMatrix();
+            double normValue = myParser.computeEuclideanDistanceMatrix();
             //System.out.println("This is the largest distance found : " + normValue + "\n\n");
             //System.out.println("This is time took: " + myParser.time + "\n\n");
-            myParser.computeCosineDistanceMatrix();
-            myParser.outputResultsCosine(args[4] + i, Double.parseDouble(args[5]));
             myParser.normalize(normValue);
             //   myParser.outputMaps(myParser.euclideanMat);
             myParser.outputResults(args[2] + i, Double.parseDouble(args[3]));
         }
 
+        // for cosine similarity
+        for (int i = 0; i < 3; i++) {
+            DataParser myParser = new DataParser();
+            String trainingPath = args[0] + "/" + i + "/cosine-r-00000";
+            String testPath = args[1] + "/" + i + "/cosine-r-00000";
+            myParser.readin(trainingPath, testPath);
+            myParser.computeCosineDistanceMatrix();
+            myParser.outputResultsCosine(args[4] + i, Double.parseDouble(args[5]));
+        }
     }
 }

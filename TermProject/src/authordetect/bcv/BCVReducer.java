@@ -49,10 +49,17 @@ public class BCVReducer extends Reducer<Text, Text, Text, Text> {
         String cosOutStr = "";
         Collections.sort(wordTFIDFs);
         int idx = wordTFIDFs.size();
+
         for (int i = 0; i < AuthorDetection.TOP_TFIDF; i++) {
-            WordTFIDF wordTFIDF = wordTFIDFs.get(--idx);
-            cosOutStr = cosOutStr + wordTFIDF.getWord() + "=" + wordTFIDF.getTfidf();
+            try {
+                WordTFIDF wordTFIDF = wordTFIDFs.get(--idx);
+                cosOutStr = cosOutStr + wordTFIDF.getWord() + "=" + wordTFIDF.getTfidf();
+            } catch (ArrayIndexOutOfBoundsException e) {
+                break;
+            }
+
         }
+
 
         mos.write("cosine", key, new Text(cosOutStr.substring(1)));
 

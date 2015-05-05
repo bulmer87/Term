@@ -53,7 +53,7 @@ public class BCVReducer extends Reducer<Text, Text, Text, Text> {
         for (int i = 0; i < AuthorDetection.TOP_TFIDF; i++) {
             try {
                 WordTFIDF wordTFIDF = wordTFIDFs.get(--idx);
-                cosOutStr = cosOutStr + wordTFIDF.getWord() + "=" + wordTFIDF.getTfidf();
+                cosOutStr = cosOutStr + "," + wordTFIDF.getWord() + "=" + wordTFIDF.getTfidf();
             } catch (ArrayIndexOutOfBoundsException e) {
                 break;
             }

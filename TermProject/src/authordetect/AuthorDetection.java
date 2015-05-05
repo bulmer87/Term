@@ -18,8 +18,11 @@ import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.MultipleOutputs;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
+import org.apache.mahout.math.decompositions.SSVD;
 import org.apache.mahout.math.hadoop.DistributedRowMatrix;
 import authordetect.util.FileSelector;
+import org.apache.mahout.math.hadoop.stochasticsvd.SSVDHelper;
+import org.apache.mahout.math.hadoop.stochasticsvd.SSVDSolver;
 
 import java.io.IOException;
 import java.net.URI;
@@ -41,9 +44,10 @@ public class AuthorDetection {
 
     public static void main(String[] args) throws InterruptedException, IOException, ClassNotFoundException, URISyntaxException {
 
+//        DistributedRowMatrix
         Configuration configuration = new Configuration();
         FileSelector fileSelector = new FileSelector();
-
+//        ssvdSolver.getPcaMeanPath();
         DistributedRowMatrix drMatrix;
         for (int i = 0; i < ITER; i++) {
             randFileSelect(fileSelector);

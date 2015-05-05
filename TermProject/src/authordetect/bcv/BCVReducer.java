@@ -18,20 +18,18 @@ import java.util.Collections;
  * Output Value: Text ---> "Word1=TFIDF1,Word2=TFIDF2, ... "
  */
 public class BCVReducer extends Reducer<Text, Text, Text, Text> {
-
-    private ArrayList<WordTFIDF> wordTFIDFs;
     private MultipleOutputs mos;
 
     @Override
     protected void setup(Context context) throws IOException, InterruptedException {
-        wordTFIDFs = new ArrayList<WordTFIDF>();
         mos = new MultipleOutputs<Text, Text>(context);
     }
 
     @Override
     protected void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
+        ArrayList<WordTFIDF> wordTFIDFs = new ArrayList<WordTFIDF>();
 
-        String outStr = "";
+        String eucOutStr = "";
 
         for (Text val : values) {
             // for calculating cosine similarity
@@ -41,22 +39,22 @@ public class BCVReducer extends Reducer<Text, Text, Text, Text> {
             WordTFIDF element = new WordTFIDF(word, tfidf);
             wordTFIDFs.add(element);
             // for calculating euclidean distance
-            outStr = outStr + "," + valStr;
+            eucOutStr = eucOutStr + "," + valStr;
         }
 
         //write out all tfidf
-        mos.write("euclidean", key, new Text(outStr.substring(1)));
+        mos.write("euclidean", key, new Text(eucOutStr.substring(1)));
 
         //write out only top tfidf
+        String cosOutStr = "";
         Collections.sort(wordTFIDFs);
         int idx = wordTFIDFs.size();
         for (int i = 0; i < AuthorDetection.TOP_TFIDF; i++) {
             WordTFIDF wordTFIDF = wordTFIDFs.get(--idx);
-            String outvalStr = wordTFIDF.getWord() + "=" + wordTFIDF.getTfidf();
-            Text outVal = new Text(outvalStr);
-            context.write(key, outVal);
-            mos.write("cosine", key, outVal);
+            cosOutStr = cosOutStr + wordTFIDF.getWord() + "=" + wordTFIDF.getTfidf();
         }
+
+        mos.write("cosine", key, new Text(cosOutStr.substring(1)));
 
     }
 }

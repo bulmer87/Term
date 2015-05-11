@@ -1,5 +1,7 @@
 package authordetect.util;
 
+
+
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
@@ -27,7 +29,7 @@ import java.util.Random;
 
 public class FileSelector {
 
-    public static final String TRAINING_PATH = "/TrainingSet/1g/";
+    public static final String TRAINING_PATH = "/TrainingSet/Set/";
     public static final String TESTING_PATH = "/TestSet/";
     public static int TESTING_SET_SIZE = 20;
     private ArrayList<String> books = new ArrayList<String>();
@@ -40,7 +42,6 @@ public class FileSelector {
         if (s.moveFilesTo() == false) {
             System.out.println("Error in move files");
         }
-        Thread.sleep(10000);
         if (s.moveBackFiles() == false) {
             System.out.println("Error in move back files");
         }
@@ -109,7 +110,7 @@ public class FileSelector {
             try {
                 System.out.println("The new process is started on iteration " + i);
                 System.out.println("The file being copied is " + copy.get(selected));
-                Process p = Runtime.getRuntime().exec("/usr/local/hadoop/bin/hdfs dfs -mv " + TRAINING_PATH + copy.get(selected) + " " + TESTING_PATH);//movement of file to selected directory
+                Process p = Runtime.getRuntime().exec("/home/hadoop/bin/hdfs dfs -mv " + TRAINING_PATH + copy.get(selected) + " " + TESTING_PATH);//movement of file to selected directory
                 System.out.println("The exit status is " + p.waitFor());//get exit status
                 System.out.println("Waiting over for iteration " + i);
                 copy.remove(selected);
@@ -123,7 +124,7 @@ public class FileSelector {
 
     public boolean moveBackFiles() {
         try {
-            Process p = Runtime.getRuntime().exec("/usr/local/hadoop/bin/hdfs dfs -mv " + TESTING_PATH + "* " + TRAINING_PATH);
+            Process p = Runtime.getRuntime().exec("/home/hadoop/bin/hdfs dfs -mv " + TESTING_PATH + "* " + TRAINING_PATH);
             p.waitFor();
         } catch (Exception e) {
             System.out.println("!!!!! " + e + " !!!!!");
@@ -132,3 +133,4 @@ public class FileSelector {
         return true;
     }
 }
+
